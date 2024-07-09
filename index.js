@@ -45,10 +45,11 @@ app.post("/send-email", async (req, res) => {
 
     // send mail with defined transport object
     let info = await transporter.sendMail({
-      from: email,
-      to: `"ByGrip" <${process.env.SMTP_MAIL}>`,
+      from: `"ByGrip" <${process.env.SMTP_MAIL}>`,
+      to: email,
+
       subject: "Carrer Information",
-      text: `Message from ${name} (${email}, ${phoneNumber}): ${message}`,
+      text: `Message from ${name} ${email}, ${phoneNumber}: ${message}`,
     });
 
     console.log("Message sent: %s", info.messageId);
@@ -82,8 +83,9 @@ app.post("/enquiry-email", async (req, res) => {
 
     // send mail with defined transport object
     let info = await transporter.sendMail({
-      from: email,
-      to: `"ByGrip" <${process.env.SMTP_MAIL}>`,
+      from: `"ByGrip" <${process.env.SMTP_MAIL}>`,
+      to: email,
+
       subject: "Enquiry of Bygrip service",
       text: `Message from ${name} (${email}, ${phoneNumber}): ${message}`,
     });
