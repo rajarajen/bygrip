@@ -81,6 +81,6 @@ app.post("/enquiry-email", async (req, res) => {
   }
 });
 // Start server
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on http://localhost:${process.env.PORT}`);
 });
