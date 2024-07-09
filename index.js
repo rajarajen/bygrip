@@ -2,12 +2,25 @@ require("dotenv").config(); // Load environment variables from .env file
 const express = require("express");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
+const cors = require("cors");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Body parser middleware to parse incoming request bodies
 app.use(bodyParser.json());
+
+// CORS middleware with options
+const corsOptions = {
+  origin: "http://localhost:3000", // Allow requests from this origin
+  methods: ["GET", "POST"], // Allow these HTTP methods
+  allowedHeaders: ["Content-Type"], // Allow these headers
+  optionsSuccessStatus: 200, // Respond with 200 for preflight requests
+};
+
+// Enable CORS for all routes or specific routes
+app.use("/send-email", cors(corsOptions));
+app.use("/enquiry-email", cors(corsOptions));
 
 // Route to handle incoming email requests
 app.post("/send-email", async (req, res) => {
@@ -45,6 +58,8 @@ app.post("/send-email", async (req, res) => {
     res.status(500).json({ message: "Failed to send email" });
   }
 });
+
+// Route to handle enquiry email requests
 app.post("/enquiry-email", async (req, res) => {
   const { name, email, phoneNumber, message } = req.body;
 
@@ -80,6 +95,7 @@ app.post("/enquiry-email", async (req, res) => {
     res.status(500).json({ message: "Failed to send email" });
   }
 });
+
 // Start server
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on http://localhost:${process.env.PORT}`);
