@@ -26,7 +26,7 @@ app.post("/send-email", async (req, res) => {
       secure: process.env.SMTP_SECURE === "true", // convert string to boolean
       auth: {
         user: process.env.SMTP_MAIL,
-        pass: process.env.SMTP_PASS,
+        pass: process.env.SMTP_PASSWORD,
       },
     });
 
@@ -61,7 +61,7 @@ app.post("/enquiry-email", async (req, res) => {
       secure: process.env.SMTP_SECURE === "true", // convert string to boolean
       auth: {
         user: process.env.SMTP_MAIL,
-        pass: process.env.SMTP_PASS,
+        pass: process.env.SMTP_PASSWORD,
       },
     });
 
